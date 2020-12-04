@@ -6,6 +6,8 @@
 axios.get('https://api.github.com/users/Lukerdue')
   .then(res=>{
     console.log(res.data);
+    let card = cardMaker(res.data);
+    document.querySelector('.cards').appendChild(card);
   })
   .catch(drama=>{
     console.log(drama);
@@ -72,6 +74,7 @@ info.appendChild(name);
 info.appendChild(user);
 info.appendChild(loc);
 info.appendChild(profile);
+profile.appendChild(url);
 info.appendChild(followers);
 info.appendChild(following);
 info.appendChild(bio);
@@ -79,13 +82,13 @@ info.appendChild(bio);
 card.classList.add('card');
 info.classList.add('card-info');
 name.classList.add('name');
-username.classList.add('username');
+user.classList.add('username');
 
 img.src = hubObj.avatar_url;
 name.textContent = hubObj.name;
-username.textContent = hubObj.username;
+user.textContent = hubObj.login;
 loc.textContent = hubObj.location;
-url.textContent = 'Click here to go to their profile'
+url.textContent = 'Click here to go to their profile';
 url.href = hubObj.url;
 followers.textContent = hubObj.followers;
 following.textContent = hubObj.following;
