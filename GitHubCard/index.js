@@ -8,6 +8,28 @@ axios.get('https://api.github.com/users/Lukerdue')
     console.log(res.data);
     let card = cardMaker(res.data);
     document.querySelector('.cards').appendChild(card);
+
+    //fetching followers url
+    axios.get(res.data.followers_url)
+      .then(res=>{
+        console.log(res.data);
+
+        //fetching follwer url
+        res.data.forEach(f=>{
+          axios.get(f.url)
+          .then(res=>{
+            console.log(res.data)
+            let card = cardMaker(res.data);
+            document.querySelector('.cards').appendChild(card);
+          })
+          .catch(drama=>{//catches individual follower drama
+            console.log(drama)
+          })
+        })
+      })
+      .catch(drama=>{//CATCHING FOLLOWER ARRAY FETCH
+        console.log(drama)
+      })
   })
   .catch(drama=>{
     console.log(drama);
@@ -33,19 +55,19 @@ axios.get('https://api.github.com/users/Lukerdue')
           user, and adding that card to the DOM.
 */
 
-axios.get('https://api.github.com/users/Lukerdue/followers')
-  .then(res=>{
-    console.log(res.data);
-    res.data.forEach(u=>{
-      let card = cardMaker(u);
-      document.querySelector('.cards').appendChild(card);
-    })
-  })
-  .catch(drama=>{
-    console.log(drama);
-  })
+// axios.get('https://api.github.com/users/Lukerdue/followers')
+//   .then(res=>{
+//     console.log(res.data);
+//     res.data.forEach(u=>{
+//       let card = cardMaker(u);
+//       document.querySelector('.cards').appendChild(card);
+//     })
+//   })
+//   .catch(drama=>{
+//     console.log(drama);
+//   })
 
-const followersArray = [];
+// const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -101,7 +123,7 @@ name.textContent = hubObj.name;
 user.textContent = hubObj.login;
 loc.textContent = hubObj.location;
 url.textContent = 'Click here to go to their profile';
-url.href = hubObj.url;
+url.href = hubObj.html_url;
 followers.textContent = hubObj.followers;
 following.textContent = hubObj.following;
 bio.textContent = hubObj.bio;
