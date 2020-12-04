@@ -53,6 +53,47 @@ const followersArray = [];
 
 */
 
+function cardMaker(hubObj){
+let card = document.createElement('div');
+let img = document.createElement('img');
+let info = document.createElement('div');
+let name = document.createElement('h3');
+let user = document.createElement('p');
+let loc = document.createElement('p');
+let profile = document.createElement('p');
+let url = document.createElement('a');
+let followers = document.createElement('p');
+let following = document.createElement('p');
+let bio = document.createElement('p');
+
+card.appendChild(img);
+card.appendChild(info);
+info.appendChild(name);
+info.appendChild(user);
+info.appendChild(loc);
+info.appendChild(profile);
+info.appendChild(followers);
+info.appendChild(following);
+info.appendChild(bio);
+
+card.classList.add('card');
+info.classList.add('card-info');
+name.classList.add('name');
+username.classList.add('username');
+
+img.src = hubObj.avatar_url;
+name.textContent = hubObj.name;
+username.textContent = hubObj.username;
+loc.textContent = hubObj.location;
+url.textContent = 'Click here to go to their profile'
+url.href = hubObj.url;
+followers.textContent = hubObj.followers;
+following.textContent = hubObj.following;
+bio.textContent = hubObj.bio;
+
+return card;
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
